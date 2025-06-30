@@ -7,8 +7,8 @@ export default async function Home() {
   console.log('Projects:', projects);
 
   return (
-    <div>
-      <h1>Welcome to the Portfolio</h1>
+    <div className='container'>
+      <h1 className='mt-4'>Welcome to the Portfolio</h1>
     </div>
   );
 }

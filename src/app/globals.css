@@ -1,42 +1,360 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
+@import "~bootstrap/dist/css/bootstrap.min.css";
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  font-family: 'DM sans', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
-a {
-  color: inherit;
+:root {
+  --navbar-height: 136px;
+  --white: #ffffff;
+}
+
+.no-underline-link {
   text-decoration: none;
+  font-weight: 800;
+  color: black
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+.no-underline-link:hover {
+  text-decoration: line-through !important;
+}
+
+a:hover {
+  text-decoration: line-through;
+}
+
+h1 {
+  font-weight: 700 !important;
+  letter-spacing: 0.1rem;
+}
+
+
+/* _____ MAIN SPLASH PAGE ______ */
+
+.main-splash {
+  height: 100vh;
+  width: 100%;
+  margin-top: calc(-1 * var(--navbar-height)) /* The navbar height*/
+}
+
+.main-splash-link {
+  text-decoration: none;
+  color: black;
+}
+
+.main-splash-letter {
+  position: relative;
+  font-size: 4rem;
+  font-weight: 800
+}
+
+.main-splash-svg-letter {
+  position: relative;
+  height: 8rem;
+}
+
+.main-splash-spacer {
+  height: 100px
+}
+
+.hover-object {
+  height: 12rem;
+}
+
+/* Spinning Images */
+.draggable-div {
+  /* border: 1px solid black; */
+  padding: 10px;
+  position: absolute;
+  animation: spin 10s linear infinite; /* Add the spin animation */
+}
+
+.content {
+  cursor: move;
+}
+
+.homepage-shoe {
+  height: 200px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
   }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+/* 3D images screen */
+
+.canvas-container {
+  position: relative;
+  width: 100vw; /* Adjust as needed */
+  height: 100vh; /* Adjust as needed */
+}
+
+.heading-container {
+  position: absolute;
+  top: 50%; /* Adjust to vertically center the heading */
+  left: 50%; /* Adjust to horizontally center the heading */
+  transform: translate(-50%, -50%); /* Center the heading precisely */
+  z-index: 1; /* Ensure the heading is above the canvas */
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2; /* Ensure the canvas is below the heading */
+}
+
+.main-name-3D-backdrop {
+  font-size: 12rem;
+  font-weight: 800
+}
+
+/* Floating Shapes Example CSS */
+.floating-shapes-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+
+/* _____ PROJECT PAGES ______ */
+
+.full-width-image {
+  width: 100vw;
+}
+
+.small-spacer {
+  height: 3rem;
+}
+
+.section-header {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.col-image {
+  /* height: 100%; */
+  width: 100%;
+}
+
+.carousel-indicators {
+  bottom: -60px !important
+}
+
+.carousel-control-next-icon {
+  display: none !important
+}
+
+.carousel-control-prev-icon {
+  display: none !important
+}
+
+.project-carousel-image {
+  height: 100%;
+}
+
+.carousel-item-wrapper {
+  height: 75vh;
+}
+
+
+/* _____ ABOUT PAGE ______ */
+
+.about-intro {
+  font-size: 72px;
+}
+
+.email-link {
+  color: #e1483d;
+  transition: .5s;
+}
+
+.email-link:hover {
+  color: black;
+}
+
+/* The social media links circles */
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  background-color: transparent;
+  border: 2px solid #e1483d;
+  font-size: 16px;
+  font-weight: bold;
+  /* color: red; */
+}
+
+.no-bullets {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+ul.no-bullets li {
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* _______ HONORS PROJECT ________*/
+
+/* .background-image{
+  margin-top: calc(-1 * var(--navbar-height));
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 80%, rgba(255, 255, 255, 1) 90%), url("../public/img/honors-project/background-gif/liv-sewing.gif");
+} */
+
+.custom-modal {
+  max-width: 90% !important;
+}
+
+.modal-content {
+  border: 5px solid black !important;
+  border-radius: 30px !important;
+}
+
+.modal-header {
+  border-bottom: none !important;
+}
+
+.modal-body {
+  border-radius: 20px;
+}
+
+.modal-title {
+  font-weight: 700 !important;
+}
+
+.modal-footer {
+  border: none !important;
+  padding: 0px !important;
+  padding-bottom: 3rem !important;
+}
+
+.modal-body > button {
+  margin-right: 10px;
+  border-radius: 50px;
+  width: 8rem;
+  background-color: black;
+}
+
+button.topic-icon {
+  background: none;
+  color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+button.topic-icon:hover {
+  opacity: .5;
+}
+
+button.topic-icon:focus {
+  opacity: .5;
+}
+
+
+.background-image {
+  background-size: contain !important ;
+
+  /* sm < 667 */
+  width: 1100px; 
+  height: 770px; 
+
+  position: relative;
+}
+
+.topic-icon {
+  position: absolute;
+  z-index: 1;
+  cursor: pointer
+}
+
+/* Scrollbar */
+
+/* width */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* HEIGHT BREAKPOINTS */
+
+/* md >= 667 & < 900 */
+@media (min-height: 667px) { 
+  .background-image {
+    width: 1400px; 
+    height: 980px; 
+  }
+}
+
+/* lg >= 900 */
+@media (min-height: 900px) { 
+  .background-image {
+    width: 1700px; 
+    height: 1190px; 
+  }
+}
+
+
+/* _______ MEDIA QUERIES _______ */
+
+/* md */
+@media (min-width: 768px) { 
+
+  .main-splash-letter {
+    font-size: 8rem;
+  }
+
+  .modal-header {
+    margin-left: 3rem !important;
+    margin-right: 3rem !important
+  }
+
+}
+
+/* lg */
+@media (min-width: 992px) { 
+
+  .about-container {
+    margin-left: 10rem;
+    margin-right: 10rem;
+  }
+
+  .custom-modal {
+    max-width: 50% !important;
+  }
+
+}
+
+/* xl */
+@media (min-width: 1200px) { 
+
+  .main-splash-letter {
+    font-size: 10rem;
+  }
+
 }
