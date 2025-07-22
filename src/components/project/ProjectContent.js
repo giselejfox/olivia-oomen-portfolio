@@ -1,10 +1,10 @@
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
-import ProjectHeading from './content/ProjectHeading';
-import ProjectText from './content/ProjectText';
-import FullWidthImage from './content/FullWidthImage';
-import TwoColumnImageLayout from './content/TwoColumnImageLayout';
-import SectionHeading from './content/SectionHeading';
+import ProjectHeading from './ProjectHeading';
+import ProjectText from '../content-blocks/ProjectText';
+import FullWidthImage from '../content-blocks/FullWidthImage';
+import TwoColumnImageLayout from '../content-blocks/TwoColumnImageLayout';
+import SectionHeading from '../content-blocks/SectionHeading';
 
 export default function ProjectContent({ contentBlocks }) {
   return (

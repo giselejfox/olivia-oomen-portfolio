@@ -1,5 +1,5 @@
 import { fetchEntries } from '@/lib/contentful';
-import HomeClient from '@/components/HomeClient';
+import HomeClient from '@/components/homepage/HomeClient';
 
 export default async function Home() {
 

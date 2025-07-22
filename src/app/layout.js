@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './globals.css';
 
-import Navbar from '@/components/NavBar';
+import Navbar from '@/components/global/NavBar';
 
 export const metadata = {
   title: "Create Next App",

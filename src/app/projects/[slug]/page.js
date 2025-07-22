@@ -1,7 +1,7 @@
 import { fetchEntryBySlug, fetchEntries } from '@/lib/contentful';
 
-import ProjectContent from '@/components/ProjectContent';
-import ProjectHeading from '@/components/content/ProjectHeading';
+import ProjectContent from '@/components/project/ProjectContent';
+import ProjectHeading from '@/components/project/ProjectHeading';
 
 export async function generateStaticParams() {
   const projects = await fetchEntries('projectPage');

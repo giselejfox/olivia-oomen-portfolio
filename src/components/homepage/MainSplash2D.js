@@ -6,7 +6,7 @@ import Matter from 'matter-js';
 
 import { useRouter } from 'next/navigation';
 
-import Navbar from './NavBar';
+import Navbar from '../global/NavBar';
 import ProjectBar from './ProjectsBar';
 
 export default function MainSplash2D({ projectData }) {

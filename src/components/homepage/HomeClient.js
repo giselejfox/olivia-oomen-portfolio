@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import PhysicsWrapper from '@/components/PhysicsWrapper';
-import ProjectListingPage from '@/components/ProjectListingPage';
+import PhysicsWrapper from '@/components/homepage/PhysicsWrapper';
+import ProjectListingPage from '@/components/homepage/ProjectListingPage';
 
 export default function HomeClient({ projectData }) {
   const [isBigScreen, setIsBigScreen] = useState(null); // null: unknown screen size
