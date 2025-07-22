@@ -26,6 +26,7 @@ export const contentfulClient = createClient({
 export async function fetchEntries(contentType) {
   const entries = await contentfulClient.getEntries({
     content_type: contentType,
+    include: 3
   });
   return entries.items;
 }
@@ -35,6 +36,7 @@ export async function fetchEntryBySlug(contentType, slug) {
     content_type: contentType,
     'fields.slug': slug,
     limit: 1,
+    include: 3
   });
   return entries.items[0] || null;
 }

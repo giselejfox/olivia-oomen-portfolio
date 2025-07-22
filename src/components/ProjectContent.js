@@ -6,12 +6,9 @@ import FullWidthImage from './content/FullWidthImage';
 import TwoColumnImageLayout from './content/TwoColumnImageLayout';
 
 // Optional helper to resolve media URLs (implement as needed)
-function resolveMediaUrl(mediaField) {
-  if (mediaField?.fields?.file?.url) {
-    return `https:${mediaField.fields.file.url}`;
-  }
-  return '';
-}
+// function resolveMediaUrl(url) {
+//   return `https:${url}`;
+// }
 
 export default function ProjectContent({ contentBlocks }) {
   return (
@@ -20,7 +17,8 @@ export default function ProjectContent({ contentBlocks }) {
         const type = block.sys.contentType.sys.id;
         const fields = block.fields;
 
-        // console.log(fields.projectText)
+        // console.log(fields)
+        // console.log(fields.media.fields.image)
 
         switch (type) {
           case 'projectHeading':
@@ -31,8 +29,10 @@ export default function ProjectContent({ contentBlocks }) {
             return <ProjectText key={block.sys.id} richText={richText}/>;
 
           case 'fullWidthImage':
-            const mediaUrl = resolveMediaUrl(fields.media);
-            return <FullWidthImage key={block.sys.id} media={mediaUrl} />;
+            // console.log(fields.media.fields.image.fields.file.url)
+            const imageUrl = `https:${fields.media.fields.image.fields.file.url}`
+            console.log(imageUrl)
+            return <FullWidthImage key={block.sys.id} imageUrl={imageUrl}/>;
 
         //   case 'twoColumnImageLayout':
         //     const imageUrls = (fields.images || []).map(resolveMediaUrl);

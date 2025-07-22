@@ -1,6 +1,7 @@
 import { fetchEntryBySlug, fetchEntries } from '@/lib/contentful';
 
 import ProjectContent from '@/components/ProjectContent';
+import ProjectHeading from '@/components/content/ProjectHeading';
 
 export async function generateStaticParams() {
   const projects = await fetchEntries('projectPage');
@@ -10,21 +11,23 @@ export async function generateStaticParams() {
 }
 
 export default async function ProjectPage({ params }) {
-  const { slug } = await params;
-  const project = await fetchEntryBySlug('projectPage', slug);
+    const { slug } = await params;
+    const project = await fetchEntryBySlug('projectPage', slug);
 
-//   console.log(project)
+    if (!project) {
+        return <p>Project not found.</p>;
+    }
 
-  if (!project) {
-    return <p>Project not found.</p>;
-  }
+    const title = project.fields.externalTitle || 'Project Title';
+    const description = project.fields.shortDescription || 'Project Description';
+    const collaborators = project.fields.collaborators || 'INDIVIDUAL PROJECT';
+    const duration = project.fields.duration.toUpperCase() || 'Duration';
+    const date = project.fields.date.toUpperCase() || 'Date';   
 
   return (
     <main>
-      <h1>{project.fields.externalTitle}</h1>
-      <p>{project.fields.duration}</p>
-      <p>{JSON.stringify(project.fields.content,null,'\t')}</p>
-      <ProjectContent contentBlocks={project.fields.content} />
+        <ProjectHeading title={title} description={description} duration={duration} collaborators={collaborators} date={date}/>
+        <ProjectContent contentBlocks={project.fields.content} />
     </main>
   );
 }

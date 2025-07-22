@@ -1,5 +1,5 @@
-export default function FullWidthImage({ project, imageName, altText}) {
+export default function FullWidthImage({ project, imageUrl, altText}) {
     return (
-        <img className="full-width-image" src={"img/" + project + "/" + imageName} alt={altText} />
+        <img className="full-width-image" src={imageUrl} alt={altText} />
     )
 }
