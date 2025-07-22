@@ -2,14 +2,15 @@
 
 // import { Link } from 'react-router-dom';
 import React, { useEffect, useRef } from 'react';
-import { Body, Engine, Render, World, Bodies, Mouse, MouseConstraint, Events, Runner} from 'matter-js';
+import { Render, Bodies, Mouse, MouseConstraint, Events } from 'matter-js';
 import Matter from 'matter-js';
 
 import { useRouter } from 'next/navigation';
 
 import Navbar from './NavBar';
 
-export default function MainSplash2D() {
+export default function MainSplash2D({ projectData }) {
+    const router = useRouter();
     // Add resize event listener to the main component
     useEffect(() => {
         let resizeTimer;
@@ -29,12 +30,17 @@ export default function MainSplash2D() {
         };
     }, []);
 
-    console.log('MainSplash2D component rendered');
-
     return (
-        <div>
-            {/* <FloatingImages2D /> */}
-            <PhysicsScene />
+        <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            zIndex: -1,
+            // pointerEvents: 'none', // so navbar buttons remain clickable
+        }}>
+            <PhysicsScene router={router} projectData={projectData} />
             {/* <div style={{ zIndex: 1 }} className="content-wrapper d-flex vh-100 flex-column justify-content-between">
                 <Navbar />
                 <ProjectBar />
@@ -43,7 +49,7 @@ export default function MainSplash2D() {
     )
 }
 
-function PhysicsScene() {
+function PhysicsScene({ router, projectData }) {
   const sceneRef = useRef(null);
 
   useEffect(() => {
@@ -67,13 +73,17 @@ function PhysicsScene() {
         const x = Math.random() * windowWidth;
         const y = Math.random() * windowHeight;
 
-        const body = Bodies.rectangle(x, y, 100, 100, {
+        const scale = getScale({ width: project.imageWidth, height: project.imageHeight }, 400)
+        const boxHeight = project.imageHeight * (scale - 0.05) // 0.1 lets them overlap a bit
+        const boxWidth = project.imageWidth * (scale - 0.05) // 0.1 lets them overlap a bit
+
+        const body = Bodies.rectangle(x, y, boxWidth, boxHeight, {
             restitution: 0.6,
             render: {
                 sprite: {
                     texture: project.iconUrl,
-                    xScale: isBigScreen ? getScale({ width: project.imageWidth, height: project.imageHeight }, 400) : getScale({ width: project.imageWidth, height: project.imageHeight }, 200),
-                    yScale: isBigScreen ? getScale({ width: project.imageWidth, height: project.imageHeight }, 400) : getScale({ width: project.imageWidth, height: project.imageHeight }, 200),
+                    xScale: scale,
+                    yScale: scale
                 }
             },
             label: project.slug
@@ -84,20 +94,53 @@ function PhysicsScene() {
         return body;
     })
 
+    const text = Bodies.rectangle(windowWidth / 2, windowHeight / 2, 1, 1, {
+        isStatic: true, // Set the body as static
+        collisionFilter: {
+            category: 0,
+            mask: 0, // don't collide with anything
+        },
+        render: {
+            sprite: {
+                texture: 'img/texthomepage.png',
+                xScale: isBigScreen ? .2 : .1,
+                yScale: isBigScreen ? .2 : .1,
+            }
+        }
+    });
+
     const walls = createWalls();
 
-    World.add(world, [...walls, ...bodies]);
+    World.add(world, [text, ...walls, ...bodies]);
 
     // Add mouse control
     const mouse = Mouse.create(render.canvas);
     const mouseConstraint = MouseConstraint.create(engine, {
-        mouse,
-        constraint: {
-            stiffness: 0.2,
-            render: {
-            visible: false,
-            },
-        },
+      mouse: Matter.Mouse.create(render.canvas),
+      constraint: { stiffness: 0.2, render: { visible: false } },
+    });
+
+    // Add an event listener to prevent default behavior on mouse clicks
+    mouseConstraint.mouse.element.addEventListener("mousedown", function (event) {
+        event.preventDefault();
+    });
+
+    // This helps determine what's been double clicked
+    let lastMouseDownInfo = {bodyLabel: "starter", date: 0}
+
+    Events.on(mouseConstraint, "mousedown", () => {
+        const body = mouseConstraint.body;
+        const now = Date.now();
+        // if we've clicked on a body and the last click we did was on the same body and less than 1 second ago
+        // then we open that project page
+        if (body) {
+            const doubleClick = areDatesWithinTwoSeconds(Date.now(), lastMouseDownInfo.date) && mouseConstraint.body.label === lastMouseDownInfo.bodyLabel
+            if (doubleClick) {
+                router.push(`/projects/${body.label}`)
+            } else { // otherwise we rest the last thing we clicked
+                lastMouseDownInfo = {bodyLabel: mouseConstraint.body.label, date: now}
+            }
+        }
     });
 
     World.add(world, mouseConstraint);
@@ -120,23 +163,6 @@ function PhysicsScene() {
 
   return <div ref={sceneRef} />;
 }
-
-const projectData = [
-  {
-    title: 'Onsight',
-    slug: 'onsight',
-    iconUrl: 'https://images.ctfassets.net/b6prw4zfn5ww/1Jp15apVSZHoY40CdSlUO0/9cd5588c7d50c446a77e4bd3fcf38e9b/onsighthomepage_copy.png',
-    imageWidth: 2199,
-    imageHeight: 1596
-  },
-  {
-    title: 'Beam',
-    slug: 'beam',
-    iconUrl: 'https://images.ctfassets.net/b6prw4zfn5ww/3YWGKewYZJwBkbaTseexPk/72e1e2274809d26767c3fb92f35bbbb9/beamhomepage_copy.png',
-    imageWidth: 335,
-    imageHeight: 997
-  }
-]
 
 function areDatesWithinTwoSeconds(date1, date2) {
     // Convert date numbers to Date objects

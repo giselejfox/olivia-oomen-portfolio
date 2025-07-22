@@ -31,7 +31,7 @@ export default async function Home() {
           </Col>
         ))}
       </Row> */}
-      <PhysicsWrapper />
+      <PhysicsWrapper projectData={projectData}/>
     </div>
   );
 }

@@ -10,7 +10,7 @@ export default function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg py-5 px-4" style={{zIndex: 2}}>
             <div className="container-fluid">
-                <Link className="navbar-brand fw-bold" href="/work">OLIVIA OOMEN</Link>
+                <Link className="navbar-brand fw-bold" href="/">OLIVIA OOMEN</Link>
                 <button className="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
                 </button>
@@ -18,7 +18,7 @@ export default function Navbar() {
                 <ul className="navbar-nav">
                     <li className="nav-item">
                         <Link 
-                            className={"nav-link active fw-bold " + ( (pathname === '/work' & pathname !== '/sole-opinion') ? "text-decoration-line-through" : '')}
+                            className={"nav-link active fw-bold " + ( (pathname === '/work' || pathname == '/') ? "text-decoration-line-through" : '')}
                             href="/work"
                         >WORK</Link>
                     </li>
