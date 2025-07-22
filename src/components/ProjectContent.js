@@ -4,11 +4,7 @@ import ProjectHeading from './content/ProjectHeading';
 import ProjectText from './content/ProjectText';
 import FullWidthImage from './content/FullWidthImage';
 import TwoColumnImageLayout from './content/TwoColumnImageLayout';
-
-// Optional helper to resolve media URLs (implement as needed)
-// function resolveMediaUrl(url) {
-//   return `https:${url}`;
-// }
+import SectionHeading from './content/SectionHeading';
 
 export default function ProjectContent({ contentBlocks }) {
   return (
@@ -17,26 +13,27 @@ export default function ProjectContent({ contentBlocks }) {
         const type = block.sys.contentType.sys.id;
         const fields = block.fields;
 
-        // console.log(fields)
-        // console.log(fields.media.fields.image)
+        console.log(fields)
 
         switch (type) {
           case 'projectHeading':
-            return <ProjectHeading key={block.sys.id} heading={fields.projectHeading} />;
+            return <SectionHeading key={block.sys.id} heading={fields.projectHeading} />;
 
           case 'projectText':
             const richText = documentToReactComponents(fields.projectText)
             return <ProjectText key={block.sys.id} richText={richText}/>;
 
           case 'fullWidthImage':
-            // console.log(fields.media.fields.image.fields.file.url)
             const imageUrl = `https:${fields.media.fields.image.fields.file.url}`
-            console.log(imageUrl)
-            return <FullWidthImage key={block.sys.id} imageUrl={imageUrl}/>;
+            const altText = fields.media.fields.altText
+            return <FullWidthImage key={block.sys.id} imageUrl={imageUrl} altText={altText}/>;
 
-        //   case 'twoColumnImageLayout':
-        //     const imageUrls = (fields.images || []).map(resolveMediaUrl);
-        //     return <TwoColumnImageLayout key={block.sys.id} images={imageUrls} />;
+          case 'twoColumnImageLayout':
+            const imageData = [
+              { altText: fields.leftImage.fields.altText, imageURL: `https:${fields.leftImage.fields.image.fields.file.url}`},
+              { altText: fields.rightImage.fields.altText, imageURL: `https:${fields.rightImage.fields.image.fields.file.url}`}
+            ];
+            return <TwoColumnImageLayout key={block.sys.id} imageData={imageData} />;
 
           default:
             return null; // unknown block type
