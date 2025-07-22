@@ -1,6 +1,5 @@
 'use client'
 
-// import { Link } from 'react-router-dom';
 import React, { useEffect, useRef } from 'react';
 import { Render, Bodies, Mouse, MouseConstraint, Events } from 'matter-js';
 import Matter from 'matter-js';
@@ -8,6 +7,7 @@ import Matter from 'matter-js';
 import { useRouter } from 'next/navigation';
 
 import Navbar from './NavBar';
+import ProjectBar from './ProjectsBar';
 
 export default function MainSplash2D({ projectData }) {
     const router = useRouter();
@@ -38,13 +38,11 @@ export default function MainSplash2D({ projectData }) {
             width: '100vw',
             height: '100vh',
             zIndex: -1,
-            // pointerEvents: 'none', // so navbar buttons remain clickable
         }}>
             <PhysicsScene router={router} projectData={projectData} />
-            {/* <div style={{ zIndex: 1 }} className="content-wrapper d-flex vh-100 flex-column justify-content-between">
-                <Navbar />
-                <ProjectBar />
-            </div> */}
+            <div style={{ zIndex: 1 }} className="content-wrapper d-flex vh-100 flex-column justify-content-end">
+                <ProjectBar projectData={projectData} />
+            </div>
         </div>
     )
 }
@@ -229,58 +227,58 @@ const createWalls = () => {
     return [floor, leftWall, rightWall, ceiling];
 };
 
-export function ProjectBar() {
-    const handleLinkClick = () => {
-        window.scrollTo(0, 0);
-    }
+// export function ProjectBar() {
+//     const handleLinkClick = () => {
+//         window.scrollTo(0, 0);
+//     }
 
-    return (
-        <div style={{ zIndex: 2 }} className="d-flex flex-wrap justify-content-center project-bar mb-5 pb-4">
-            <div className="mx-2">
-                <Link className="main-splash-link fw-bold" to="/onsight" onClick={handleLinkClick}>
-                    ONSIGHT
-                </Link>
-            </div>
-            <div className="mx-2">
-                <Link className="main-splash-link fw-bold" to="/kit" onClick={handleLinkClick}>
-                    KIT
-                </Link>
-            </div>
-            <div className="mx-2">
-                <Link className="main-splash-link fw-bold" to="/motion" onClick={handleLinkClick}>
-                    MOTION
-                </Link>
-            </div>
-            <div className="mx-2">
-                <Link className="main-splash-link fw-bold" to="/well" onClick={handleLinkClick}>
-                    WELL
-                </Link>
-            </div>
-            <div className="mx-2">
-                <Link className="main-splash-link fw-bold" to="/conversation-ave" onClick={handleLinkClick}>
-                    CONVERSATION AVE
-                </Link>
-            </div>
-            <div className="mx-2">
-                <Link className="main-splash-link fw-bold" to="/site-archive-cite" onClick={handleLinkClick}>
-                    SITE / ARCHIVE / CITE
-                </Link>
-            </div>
-            <div className="mx-2">
-                <Link className="main-splash-link fw-bold" to="/coda" onClick={handleLinkClick}>
-                    CODA
-                </Link>
-            </div>
-            <div className="mx-2">
-                <Link className="main-splash-link fw-bold" to="/beam" onClick={handleLinkClick}>
-                    BEAM
-                </Link>
-            </div>
-            <div className="mx-2">
-                <Link className="main-splash-link fw-bold" to="/spur" onClick={handleLinkClick}>
-                    SPUR
-                </Link>
-            </div>
-        </div>
-    );
-}
+//     return (
+//         <div style={{ zIndex: 2 }} className="d-flex flex-wrap justify-content-center project-bar mb-5 pb-4">
+//             <div className="mx-2">
+//                 <Link className="main-splash-link fw-bold" to="/onsight" onClick={handleLinkClick}>
+//                     ONSIGHT
+//                 </Link>
+//             </div>
+//             <div className="mx-2">
+//                 <Link className="main-splash-link fw-bold" to="/kit" onClick={handleLinkClick}>
+//                     KIT
+//                 </Link>
+//             </div>
+//             <div className="mx-2">
+//                 <Link className="main-splash-link fw-bold" to="/motion" onClick={handleLinkClick}>
+//                     MOTION
+//                 </Link>
+//             </div>
+//             <div className="mx-2">
+//                 <Link className="main-splash-link fw-bold" href="/projects/well" onClick={handleLinkClick}>
+//                     WELL
+//                 </Link>
+//             </div>
+//             <div className="mx-2">
+//                 <Link className="main-splash-link fw-bold" to="/conversation-ave" onClick={handleLinkClick}>
+//                     CONVERSATION AVE
+//                 </Link>
+//             </div>
+//             <div className="mx-2">
+//                 <Link className="main-splash-link fw-bold" to="/site-archive-cite" onClick={handleLinkClick}>
+//                     SITE / ARCHIVE / CITE
+//                 </Link>
+//             </div>
+//             <div className="mx-2">
+//                 <Link className="main-splash-link fw-bold" to="/coda" onClick={handleLinkClick}>
+//                     CODA
+//                 </Link>
+//             </div>
+//             <div className="mx-2">
+//                 <Link className="main-splash-link fw-bold" to="/beam" onClick={handleLinkClick}>
+//                     BEAM
+//                 </Link>
+//             </div>
+//             <div className="mx-2">
+//                 <Link className="main-splash-link fw-bold" to="/spur" onClick={handleLinkClick}>
+//                     SPUR
+//                 </Link>
+//             </div>
+//         </div>
+//     );
+// }
