@@ -3,11 +3,11 @@
 import React, { useEffect, useRef } from 'react';
 import { Render, Bodies, Mouse, MouseConstraint, Events } from 'matter-js';
 import Matter from 'matter-js';
-
 import { useRouter } from 'next/navigation';
 
-import Navbar from '../global/NavBar';
 import ProjectBar from './ProjectsBar';
+
+import { getScale, areDatesWithinTwoSeconds } from '@/lib/utils';
 
 export default function MainSplash2D({ projectData }) {
     const router = useRouter();
@@ -160,24 +160,6 @@ function PhysicsScene({ router, projectData }) {
   }, []);
 
   return <div ref={sceneRef} />;
-}
-
-function areDatesWithinTwoSeconds(date1, date2) {
-    // Convert date numbers to Date objects
-    const d1 = new Date(date1);
-    const d2 = new Date(date2);
-    
-    // Get the difference in milliseconds between the two dates
-    const diff = Math.abs(d1 - d2);
-    
-    // Check if the difference is less than or equal to 2000 milliseconds (2 seconds)
-    return diff <= 1000;
-}
-
-function getScale({ width, height }, maxSize) {
-  const largestDimension = Math.max(width, height);
-  const scale = maxSize / largestDimension;
-  return scale;
 }
 
 const initializeEngine = () => {

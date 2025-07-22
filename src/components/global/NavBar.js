@@ -19,7 +19,7 @@ export default function Navbar() {
                     <li className="nav-item">
                         <Link 
                             className={"nav-link active fw-bold " + ( (pathname === '/work' || pathname == '/') ? "text-decoration-line-through" : '')}
-                            href="/work"
+                            href="/"
                         >WORK</Link>
                     </li>
                     <li className="nav-item">

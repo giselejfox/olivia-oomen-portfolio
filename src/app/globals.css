@@ -256,10 +256,10 @@ ul.no-bullets li {
 
 /* _______ HONORS PROJECT ________*/
 
-/* .background-image{
+.background-image{
   margin-top: calc(-1 * var(--navbar-height));
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 80%, rgba(255, 255, 255, 1) 90%), url("../public/img/honors-project/background-gif/liv-sewing.gif");
-} */
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 80%, rgba(255, 255, 255, 1) 90%), url("../../public/img/honors-project/background-gif/liv-sewing.gif");
+}
 
 .custom-modal {
   max-width: 90% !important;
