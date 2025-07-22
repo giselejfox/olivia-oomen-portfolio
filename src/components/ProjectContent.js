@@ -34,6 +34,10 @@ export default function ProjectContent({ contentBlocks }) {
               { altText: fields.rightImage.fields.altText, imageURL: `https:${fields.rightImage.fields.image.fields.file.url}`}
             ];
             return <TwoColumnImageLayout key={block.sys.id} imageData={imageData} />;
+          
+          case 'spacer':
+            const height = fields.height || 5; // default to 5 if height is not specified
+            return <div key={block.sys.id} className={`py-${height}`}></div>;
 
           default:
             return null; // unknown block type

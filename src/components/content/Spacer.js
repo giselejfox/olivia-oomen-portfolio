@@ -1,5 +1,5 @@
-export default function Spacer() {
+export default function Spacer({ height }) {
     return (
-        <div className="py-5"></div>
+        <div className={`py-${height}`}></div>
     )
 }

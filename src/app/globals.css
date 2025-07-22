@@ -94,6 +94,42 @@ h1 {
   }
 }
 
+/* Projects Listing Cards */
+
+.card {
+  height: 350px; /* fixed height for all cards */
+  display: flex;
+  flex-direction: column;
+}
+
+.image-container {
+  height: 300px;   /* fixed height for all images */
+  flex-shrink: 0;  /* prevent shrinking */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.image-container img:hover {
+  transform: scale(0.96);
+}
+
+.card-body {
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-weight: 800;
+}
+
 
 
 /* 3D images screen */

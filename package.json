@@ -12,9 +12,11 @@
     "@contentful/rich-text-react-renderer": "^16.0.2",
     "bootstrap": "^5.3.7",
     "contentful": "^11.7.4",
+    "matter-js": "^0.20.0",
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.10",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.7.0"
   }
 }
