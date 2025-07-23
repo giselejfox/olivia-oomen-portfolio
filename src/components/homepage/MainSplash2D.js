@@ -63,7 +63,6 @@ function PhysicsScene({ router, projectData }) {
 
     const windowHeight = window.innerHeight
     const windowWidth = window.innerWidth
-    const isBigScreen = windowWidth >= 768
 
     // I want the scale to make it so the images are no larger than 400px on the larger screen and 200px on the smaller screen
 
@@ -101,8 +100,8 @@ function PhysicsScene({ router, projectData }) {
         render: {
             sprite: {
                 texture: 'img/texthomepage.png',
-                xScale: isBigScreen ? .2 : .1,
-                yScale: isBigScreen ? .2 : .1,
+                xScale: .2,
+                yScale: .2
             }
         }
     });
