@@ -15,7 +15,7 @@ export default async function Home() {
       imageHeight: project.fields.iconPicture.fields.image.fields.file.details.image.height,
     }));
 
-  console.log('Project Data:', projects[0].fields.displayed);
+  // console.log('Project Data:', projects[0].fields.displayed);
 
   return <HomeClient projectData={projectData} />;
 }

@@ -13,8 +13,6 @@ export default async function AboutPage() {
     const { introHeading, textBox, instagramUrl, email, linkedInUrl } = aboutPage[0].fields;
     const resumePdfUrl = "https:" + aboutPage[0].fields.resumePdf.fields.file.url
 
-    console.log(IconContext);
-
     return (
         <div className="container">
             <div className="row mx-md-5">

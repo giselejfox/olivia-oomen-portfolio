@@ -14,7 +14,7 @@ export default function ProjectContent({ contentBlocks }) {
         const type = block.sys.contentType.sys.id;
         const fields = block.fields;
 
-        console.log(fields)
+        // console.log(fields)
 
         switch (type) {
           case 'projectHeading':
@@ -41,7 +41,6 @@ export default function ProjectContent({ contentBlocks }) {
             return <div key={block.sys.id} className={`py-${height}`}></div>;
 
           case 'video':
-            console.log(fields.url)
             return <Video key={block.sys.id} videoUrl={fields.url} />
 
           default:

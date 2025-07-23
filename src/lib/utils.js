@@ -18,7 +18,6 @@ export function getScale({ width, height }, maxSize) {
 
 export function getWindowHeight() {
   if (typeof window !== 'undefined') {
-    console.log("Window height:", window.innerHeight);
     return window.innerHeight;
   }
   return 0; // Fallback for server-side rendering

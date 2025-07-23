@@ -26,7 +26,7 @@ export const contentfulClient = createClient({
 export async function fetchEntries(contentType) {
   const entries = await contentfulClient.getEntries({
     content_type: contentType,
-    include: 1
+    include: 2
   });
   return entries.items;
 }
