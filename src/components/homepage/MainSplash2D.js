@@ -134,7 +134,7 @@ function PhysicsScene({ router, projectData }) {
         if (body) {
             const doubleClick = areDatesWithinTwoSeconds(Date.now(), lastMouseDownInfo.date) && mouseConstraint.body.label === lastMouseDownInfo.bodyLabel
             if (doubleClick) {
-                router.push(`/projects/${body.label}`)
+                router.push(`/work/${body.label}`)
             } else { // otherwise we rest the last thing we clicked
                 lastMouseDownInfo = {bodyLabel: mouseConstraint.body.label, date: now}
             }
@@ -208,59 +208,3 @@ const createWalls = () => {
     });
     return [floor, leftWall, rightWall, ceiling];
 };
-
-// export function ProjectBar() {
-//     const handleLinkClick = () => {
-//         window.scrollTo(0, 0);
-//     }
-
-//     return (
-//         <div style={{ zIndex: 2 }} className="d-flex flex-wrap justify-content-center project-bar mb-5 pb-4">
-//             <div className="mx-2">
-//                 <Link className="main-splash-link fw-bold" to="/onsight" onClick={handleLinkClick}>
-//                     ONSIGHT
-//                 </Link>
-//             </div>
-//             <div className="mx-2">
-//                 <Link className="main-splash-link fw-bold" to="/kit" onClick={handleLinkClick}>
-//                     KIT
-//                 </Link>
-//             </div>
-//             <div className="mx-2">
-//                 <Link className="main-splash-link fw-bold" to="/motion" onClick={handleLinkClick}>
-//                     MOTION
-//                 </Link>
-//             </div>
-//             <div className="mx-2">
-//                 <Link className="main-splash-link fw-bold" href="/projects/well" onClick={handleLinkClick}>
-//                     WELL
-//                 </Link>
-//             </div>
-//             <div className="mx-2">
-//                 <Link className="main-splash-link fw-bold" to="/conversation-ave" onClick={handleLinkClick}>
-//                     CONVERSATION AVE
-//                 </Link>
-//             </div>
-//             <div className="mx-2">
-//                 <Link className="main-splash-link fw-bold" to="/site-archive-cite" onClick={handleLinkClick}>
-//                     SITE / ARCHIVE / CITE
-//                 </Link>
-//             </div>
-//             <div className="mx-2">
-//                 <Link className="main-splash-link fw-bold" to="/coda" onClick={handleLinkClick}>
-//                     CODA
-//                 </Link>
-//             </div>
-//             <div className="mx-2">
-//                 <Link className="main-splash-link fw-bold" to="/beam" onClick={handleLinkClick}>
-//                     BEAM
-//                 </Link>
-//             </div>
-//             <div className="mx-2">
-//                 <Link className="main-splash-link fw-bold" to="/spur" onClick={handleLinkClick}>
-//                     SPUR
-//                 </Link>
-//             </div>
-//         </div>
-//     );
-// }

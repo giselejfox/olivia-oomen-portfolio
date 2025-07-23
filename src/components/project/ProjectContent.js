@@ -5,6 +5,7 @@ import ProjectText from '../content-blocks/ProjectText';
 import FullWidthImage from '../content-blocks/FullWidthImage';
 import TwoColumnImageLayout from '../content-blocks/TwoColumnImageLayout';
 import SectionHeading from '../content-blocks/SectionHeading';
+import Video from '../content-blocks/Video';
 
 export default function ProjectContent({ contentBlocks }) {
   return (
@@ -38,6 +39,10 @@ export default function ProjectContent({ contentBlocks }) {
           case 'spacer':
             const height = fields.height || 5; // default to 5 if height is not specified
             return <div key={block.sys.id} className={`py-${height}`}></div>;
+
+          case 'video':
+            console.log(fields.url)
+            return <Video key={block.sys.id} videoUrl={fields.url} />
 
           default:
             return null; // unknown block type

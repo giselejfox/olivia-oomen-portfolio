@@ -20,7 +20,7 @@ export default async function ProjectPage({ params }) {
 
     const title = project.fields.externalTitle || 'Project Title';
     const description = project.fields.shortDescription || 'Project Description';
-    const collaborators = project.fields.collaborators || 'INDIVIDUAL PROJECT';
+    const collaborators = project.fields.collaborators ? "COLLABORATORS: " + project.fields.collaborators : 'INDIVIDUAL PROJECT';
     const duration = project.fields.duration.toUpperCase() || 'Duration';
     const date = project.fields.date.toUpperCase() || 'Date';   
 

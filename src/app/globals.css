@@ -119,7 +119,7 @@ h1 {
 }
 
 .image-container img:hover {
-  transform: scale(0.96);
+  transform: scale(0.96) rotate(-5deg);
 }
 
 .card-body {
