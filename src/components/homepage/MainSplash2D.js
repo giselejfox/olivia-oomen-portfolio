@@ -71,16 +71,17 @@ function PhysicsScene({ router, projectData }) {
         const y = Math.random() * windowHeight;
 
         const scale = getScale({ width: project.imageWidth, height: project.imageHeight }, 400)
-        const boxHeight = project.imageHeight * (scale - 0.05) // 0.1 lets them overlap a bit
-        const boxWidth = project.imageWidth * (scale - 0.05) // 0.1 lets them overlap a bit
+        const scaleWithResizeFactor = scale * project.homepageIconResizeFactor
+        const boxHeight = project.imageHeight * (scaleWithResizeFactor - 0.05) // 0.1 lets them overlap a bit
+        const boxWidth = project.imageWidth * (scaleWithResizeFactor - 0.05) // 0.1 lets them overlap a bit
 
         const body = Bodies.rectangle(x, y, boxWidth, boxHeight, {
             restitution: 0.6,
             render: {
                 sprite: {
                     texture: project.iconUrl,
-                    xScale: scale,
-                    yScale: scale
+                    xScale: scaleWithResizeFactor,
+                    yScale: scaleWithResizeFactor
                 }
             },
             label: project.slug
