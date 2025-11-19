@@ -4,7 +4,7 @@ import { fetchEntries } from '@/lib/contentful';
 export default async function WorkListingPage() {
     const work = await fetchEntries('workListingPage');
 
-    console.log(work[0].fields.projectPages[0].fields.iconPicture);
+    // console.log(work[0].fields.projectPages[0].fields.iconPicture);
 
     const workData = work[0].fields.projectPages
     .map(workPage => ({

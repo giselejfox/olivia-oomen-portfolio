@@ -5,7 +5,7 @@ export default async function Home() {
 
   const projects = await fetchEntries('projectPage');
 
-  console.log('Fetched Projects:', projects);
+  // console.log('Fetched Projects:', projects);
 
   const projectData = projects
     .filter(project => project.fields.displayed)

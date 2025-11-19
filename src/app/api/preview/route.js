@@ -25,7 +25,7 @@ export async function GET(req) {
         draftMode().enable();
 
         // ⭐ Redirect MUST be relative to preserve cookies on Vercel
-        return NextResponse.redirect(`/work/${slug}`);
+        return NextResponse.redirect(`https://olivia-oomen-portfolio.vercel.app/work/${slug}`);
 
     } catch (err) {
         console.error("PREVIEW ROUTE ERROR:", err);
