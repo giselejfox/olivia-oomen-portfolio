@@ -5,7 +5,7 @@ const accessToken = process.env.CONTENTFUL_DELIVERY_ACCESS_TOKEN;
 const environment = process.env.CONTENTFUL_ENVIRONMENT || 'master';
 const previewToken = process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN;
 
-if (!space || !deliveryToken || !previewToken) {
+if (!space || !accessToken || !previewToken) {
   throw new Error(
     'Missing Contentful environment variables. Check your .env.local file.'
   );
@@ -15,7 +15,7 @@ if (!space || !deliveryToken || !previewToken) {
 export function getContentfulClient(preview = false) {
   return createClient({
     space,
-    accessToken: preview ? previewToken : deliveryToken,
+    accessToken: preview ? previewToken : accessToken,
     host: preview ? 'preview.contentful.com' : 'cdn.contentful.com',
     environment
   });
