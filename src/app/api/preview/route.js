@@ -6,7 +6,7 @@ export async function GET(req) {
         const slug = req.nextUrl.searchParams.get("slug");
 
         // Check for secret token
-        if (!secret || secret !== process.env.NEXT_PUBLIC_PREVIEW_SECRET) {
+        if (!secret || secret !== process.env.PREVIEW_SECRET) {
             return NextResponse.json({ error: "Invalid secret" }, { status: 401 });
         }
 
