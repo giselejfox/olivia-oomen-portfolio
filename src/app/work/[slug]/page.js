@@ -1,3 +1,5 @@
+console.log("Preview mode:", draftMode().isEnabled);
+
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
@@ -7,14 +9,6 @@ import { fetchEntryBySlug, fetchEntries } from '@/lib/contentful';
 
 import ProjectContent from '@/components/project/ProjectContent';
 import ProjectHeading from '@/components/project/ProjectHeading';
-
-// // --- Static Paths ---
-// export async function generateStaticParams() {
-//   const projects = await fetchEntries('projectPage');
-//   return projects.map((project) => ({
-//     slug: project.fields.slug,
-//   }));
-// }
 
 // --- Page ---
 export default async function ProjectPage({ params }) {
