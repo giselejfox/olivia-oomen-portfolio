@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 import { draftMode } from "next/headers";
-// import { unstable_noStore as noStore } from "next/cache";
+import { unstable_noStore as noStore } from "next/cache";
 import { fetchEntryBySlug, fetchEntries } from '@/lib/contentful';
 
 import ProjectContent from '@/components/project/ProjectContent';
