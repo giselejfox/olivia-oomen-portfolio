@@ -3,40 +3,69 @@ import { createClient } from 'contentful';
 const space = process.env.CONTENTFUL_SPACE_ID;
 const accessToken = process.env.CONTENTFUL_DELIVERY_ACCESS_TOKEN;
 const environment = process.env.CONTENTFUL_ENVIRONMENT || 'master';
-const host = process.env.CONTENTFUL_HOST || 'cdn.contentful.com';
+const previewToken = process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN;
 
-if (!space || !accessToken) {
+if (!space || !deliveryToken || !previewToken) {
   throw new Error(
     'Missing Contentful environment variables. Check your .env.local file.'
   );
 }
 
-export const contentfulClient = createClient({
-    space: space,
-    accessToken: accessToken,
-})
+// ⭐ Create a client dynamically depending on preview mode
+export function getContentfulClient(preview = false) {
+  return createClient({
+    space,
+    accessToken: preview ? previewToken : deliveryToken,
+    host: preview ? 'preview.contentful.com' : 'cdn.contentful.com',
+    environment
+  });
+}
 
-// export const contentfulClient = createClient({
-//   space,
-//   accessToken,
-//   environment,
-//   host,
-// });
+// ⭐ Fetch multiple entries (works for preview + production)
+export async function fetchEntries(contentType, preview = false) {
+  const client = getContentfulClient(preview);
 
-export async function fetchEntries(contentType) {
-  const entries = await contentfulClient.getEntries({
+  const entries = await client.getEntries({
     content_type: contentType,
     include: 2
   });
+
   return entries.items;
 }
 
-export async function fetchEntryBySlug(contentType, slug) {
-  const entries = await contentfulClient.getEntries({
+// ⭐ Fetch a single entry by slug (works for preview + production)
+export async function fetchEntryBySlug(contentType, slug, preview = false) {
+  const client = getContentfulClient(preview);
+
+  const entries = await client.getEntries({
     content_type: contentType,
     'fields.slug': slug,
     limit: 1,
     include: 3
   });
+
   return entries.items[0] || null;
 }
+
+// export const contentfulClient = createClient({
+//     space: space,
+//     accessToken: accessToken,
+// })
+
+// export async function fetchEntries(contentType) {
+//   const entries = await contentfulClient.getEntries({
+//     content_type: contentType,
+//     include: 2
+//   });
+//   return entries.items;
+// }
+
+// export async function fetchEntryBySlug(contentType, slug) {
+//   const entries = await contentfulClient.getEntries({
+//     content_type: contentType,
+//     'fields.slug': slug,
+//     limit: 1,
+//     include: 3
+//   });
+//   return entries.items[0] || null;
+// }
