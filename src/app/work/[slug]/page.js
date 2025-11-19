@@ -1,7 +1,7 @@
 
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+// export const dynamic = "force-dynamic";
+// export const revalidate = 0;
 
 import { draftMode } from "next/headers";
 import { unstable_noStore as noStore } from "next/cache";
