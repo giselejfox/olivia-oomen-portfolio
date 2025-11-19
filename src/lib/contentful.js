@@ -28,7 +28,7 @@ export async function fetchEntries(contentType, preview = false) {
   const entries = await client.getEntries({
     content_type: contentType,
     include: 2
-  });
+  }, { cache: "no-store" });
 
   return entries.items;
 }
@@ -42,7 +42,7 @@ export async function fetchEntryBySlug(contentType, slug, preview = false) {
     'fields.slug': slug,
     limit: 1,
     include: 3
-  });
+  }, { cache: "no-store" });
 
   return entries.items[0] || null;
 }

@@ -1,5 +1,8 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import { draftMode } from "next/headers";
-import { unstable_noStore as noStore } from "next/cache";
+// import { unstable_noStore as noStore } from "next/cache";
 import { fetchEntryBySlug, fetchEntries } from '@/lib/contentful';
 
 import ProjectContent from '@/components/project/ProjectContent';
@@ -17,18 +20,16 @@ export async function generateStaticParams() {
 export default async function ProjectPage({ params }) {
   const { slug } = await params;
 
-  // ⭐ Detect preview mode
+  // Detect preview mode
   const { isEnabled: preview } = draftMode();
 
-  // ⭐ Disable caching ONLY in preview mode
-  if (preview) {
-    noStore();
-  }
+  // // ⭐ Disable caching ONLY in preview mode
+  // if (preview) {
+  //   noStore();
+  // }
 
-  // ⭐ Fetch entry with preview flag
+  // Fetch entry with preview flag
   const project = await fetchEntryBySlug("projectPage", slug, preview);
-
-  // const project = await fetchEntryBySlug('projectPage', slug);
 
   if (!project) return <p>Project not found.</p>;
 
