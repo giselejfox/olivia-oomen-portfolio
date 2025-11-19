@@ -1,4 +1,5 @@
 import { draftMode } from "next/headers";
+import { unstable_noStore as noStore } from "next/cache";
 import { fetchEntryBySlug, fetchEntries } from '@/lib/contentful';
 
 import ProjectContent from '@/components/project/ProjectContent';
@@ -19,14 +20,17 @@ export default async function ProjectPage({ params }) {
   // ⭐ Detect preview mode
   const { isEnabled: preview } = draftMode();
 
+  // ⭐ Disable caching ONLY in preview mode
+  if (preview) {
+    noStore();
+  }
+
   // ⭐ Fetch entry with preview flag
   const project = await fetchEntryBySlug("projectPage", slug, preview);
 
   // const project = await fetchEntryBySlug('projectPage', slug);
 
-  if (!project) {
-    return <p>Project not found.</p>;
-  }
+  if (!project) return <p>Project not found.</p>;
 
   const fields = project.fields;
   const title = fields.externalTitle || "Project Title";
