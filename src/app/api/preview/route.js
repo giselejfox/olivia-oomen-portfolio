@@ -5,7 +5,7 @@ export async function GET(req) {
   const slug = req.nextUrl.searchParams.get("slug");
 
   if (secret !== process.env.PREVIEW_SECRET || !slug) {
-    return NextResponse.json({ message: "Invalid token " + secret + req.nextUrl }, { status: 401 });
+    return NextResponse.json({ message: `Invalid token | Secret: ${secret} | Preview Secret: ${process.env.PREVIEW_SECRET} | Slug = ${slug}`}, { status: 401 });
   }
 
   // Enable preview mode
