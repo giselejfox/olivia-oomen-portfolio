@@ -19,18 +19,11 @@ export async function GET(req) {
             return NextResponse.json({ error: "Missing slug" }, { status: 400 });
         }
 
-        // Enable draft mode
+        // ⭐ Enable draft mode BEFORE redirect
         draftMode().enable();
 
-        // CREATE ABSOLUTE URL FOR REDIRECT
-        const redirectUrl = new URL(`/work/${slug}`, req.url).toString();
-
-        // Enable preview mode
-        const res = NextResponse.redirect(redirectUrl);
-        // res.cookies.set("__prerender_bypass", "1");
-        // res.cookies.set("__next_preview_data", "1");
-
-        return res;
+        // ⭐ Redirect MUST be relative to preserve cookies on Vercel
+        return NextResponse.redirect(`/work/${slug}`);
 
     } catch (err) {
         console.error("PREVIEW ROUTE ERROR:", err);
