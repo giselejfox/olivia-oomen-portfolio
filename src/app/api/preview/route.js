@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { draftMode } from "next/headers";
 
 export async function GET(req) {
+
+    console.log("HIT /api/preview ROUTE");
+
     try {
         const secret = req.nextUrl.searchParams.get("secret");
         const slug = req.nextUrl.searchParams.get("slug");
