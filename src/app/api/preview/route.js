@@ -15,12 +15,16 @@ export async function GET(req) {
             return NextResponse.json({ error: "Missing slug" }, { status: 400 });
         }
 
+        // CREATE ABSOLUTE URL FOR REDIRECT
+        const redirectUrl = new URL(`/work/${slug}`, req.url).toString();
+
         // Enable preview mode
-        const res = NextResponse.redirect(`/work/${slug}`);
+        const res = NextResponse.redirect(redirectUrl);
         res.cookies.set("__prerender_bypass", "1");
         res.cookies.set("__next_preview_data", "1");
 
         return res;
+
     } catch (err) {
         console.error("PREVIEW ROUTE ERROR:", err);
         return NextResponse.json({ error: err.message }, { status: 500 });
