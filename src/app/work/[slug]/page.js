@@ -1,4 +1,4 @@
-console.log("Preview mode:", draftMode().isEnabled);
+
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -16,6 +16,7 @@ export default async function ProjectPage({ params }) {
 
   // Detect preview mode
   const { isEnabled: preview } = draftMode();
+  console.log("Preview mode:", draftMode().isEnabled);
 
   // ⭐ Disable caching ONLY in preview mode
   if (preview) {
