@@ -8,13 +8,13 @@ import { fetchEntryBySlug, fetchEntries } from '@/lib/contentful';
 import ProjectContent from '@/components/project/ProjectContent';
 import ProjectHeading from '@/components/project/ProjectHeading';
 
-// --- Static Paths ---
-export async function generateStaticParams() {
-  const projects = await fetchEntries('projectPage');
-  return projects.map((project) => ({
-    slug: project.fields.slug,
-  }));
-}
+// // --- Static Paths ---
+// export async function generateStaticParams() {
+//   const projects = await fetchEntries('projectPage');
+//   return projects.map((project) => ({
+//     slug: project.fields.slug,
+//   }));
+// }
 
 // --- Page ---
 export default async function ProjectPage({ params }) {
@@ -23,10 +23,10 @@ export default async function ProjectPage({ params }) {
   // Detect preview mode
   const { isEnabled: preview } = draftMode();
 
-  // // ⭐ Disable caching ONLY in preview mode
-  // if (preview) {
-  //   noStore();
-  // }
+  // ⭐ Disable caching ONLY in preview mode
+  if (preview) {
+    noStore();
+  }
 
   // Fetch entry with preview flag
   const project = await fetchEntryBySlug("projectPage", slug, preview);
