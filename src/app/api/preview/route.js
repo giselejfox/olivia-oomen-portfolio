@@ -4,7 +4,7 @@ export async function GET(req) {
   const secret = req.nextUrl.searchParams.get("secret");
   const slug = req.nextUrl.searchParams.get("slug");
 
-  if (secret !== process.env.NEXT_PUBLIC_PREVIEW_SECRET || !slug) {
+  if (secret !== process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN || !slug) {
     return NextResponse.json({ message: "Invalid token" }, { status: 401 });
   }
 
