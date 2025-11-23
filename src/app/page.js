@@ -3,11 +3,11 @@ import HomeClient from '@/components/homepage/HomeClient';
 
 export default async function Home() {
 
-  const projects = await fetchEntries('projectPage');
+  const work = await fetchEntries('workListingPage');
 
   // console.log('Fetched Projects:', projects);
 
-  const projectData = projects
+  const projectData = work[0].fields.projectPages
     .filter(project => project.fields.displayed)
     .map(project => ({
       title: project.fields.externalTitle || 'Project Title',
