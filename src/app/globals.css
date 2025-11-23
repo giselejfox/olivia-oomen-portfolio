@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-  font-family: 'DM sans', sans-serif !important;
+  font-family:  var(--font-dm-sans), 'DM sans', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

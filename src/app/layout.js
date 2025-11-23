@@ -1,7 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './globals.css';
+import { DM_Sans } from 'next/font/google';
 
 import Navbar from '@/components/global/NavBar';
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400','700','800'],
+  variable: '--font-dm-sans',
+  display: 'swap',
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -10,7 +18,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={dmSans.variable}>
       <body>
         <Navbar />
         {children}
