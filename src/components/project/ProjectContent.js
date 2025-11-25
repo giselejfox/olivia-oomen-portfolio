@@ -1,11 +1,22 @@
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
-import ProjectHeading from './ProjectHeading';
+// import ProjectHeading from './ProjectHeading';
 import ProjectText from '../content-blocks/ProjectText';
-import FullWidthImage from '../content-blocks/FullWidthImage';
 import TwoColumnImageLayout from '../content-blocks/TwoColumnImageLayout';
 import SectionHeading from '../content-blocks/SectionHeading';
 import Video from '../content-blocks/Video';
+import CustomCropImage from '../content-blocks/CustomCropImage';
+
+const extractImageFields = (imageField) => {
+  return {
+    imageURL: `https:${imageField.fields.image.fields.file.url}`,
+    altText: imageField.fields.altText,
+    imageHeight: imageField.fields.image.fields.file.details.image.height,
+    imageWidth: imageField.fields.image.fields.file.details.image.width,
+    customRatio: imageField.fields.ratio || 'original',
+    focalPoint: imageField.fields.focalPoint || 'center',
+  };
+};
 
 export default function ProjectContent({ contentBlocks }) {
   return (
@@ -22,20 +33,28 @@ export default function ProjectContent({ contentBlocks }) {
 
           case 'projectText':
             const richText = documentToReactComponents(fields.projectText)
-            return <ProjectText key={block.sys.id} richText={richText}/>;
+            return <ProjectText key={block.sys.id} richText={richText} />;
 
           case 'fullWidthImage':
-            const imageUrl = `https:${fields.media.fields.image.fields.file.url}`
-            const altText = fields.media.fields.altText
-            return <FullWidthImage key={block.sys.id} imageUrl={imageUrl} altText={altText}/>;
+            const imageFields = extractImageFields(fields.media);
+            return (
+              <CustomCropImage
+                imageURL={imageFields.imageURL}
+                altText={imageFields.altText}
+                imageHeight={imageFields.imageHeight}
+                imageWidth={imageFields.imageWidth}
+                customRatio={imageFields.customRatio}
+                focalPoint={imageFields.focalPoint}
+              />
+            );
 
           case 'twoColumnImageLayout':
             const imageData = [
-              { altText: fields.leftImage.fields.altText, imageURL: `https:${fields.leftImage.fields.image.fields.file.url}`},
-              { altText: fields.rightImage.fields.altText, imageURL: `https:${fields.rightImage.fields.image.fields.file.url}`}
+              extractImageFields(fields.leftImage),
+              extractImageFields(fields.rightImage)
             ];
             return <TwoColumnImageLayout key={block.sys.id} imageData={imageData} />;
-          
+
           case 'spacer':
             const height = fields.height || 5; // default to 5 if height is not specified
             return <div key={block.sys.id} className={`py-${height}`}></div>;
