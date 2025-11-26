@@ -1,9 +1,19 @@
 import { fetchEntries } from '@/lib/contentful';
+import { draftMode } from "next/headers";
+import { unstable_noStore as noStore } from "next/cache";
 import HomeClient from '@/components/homepage/HomeClient';
 
 export default async function Home() {
 
-  const work = await fetchEntries('workListingPage');
+  // Detect draft mode
+  const { isEnabled: preview } = draftMode();
+
+  // Disable all caching in preview mode
+  if (preview) {
+    noStore();
+  }
+
+  const work = await fetchEntries('workListingPage', preview);
 
   // console.log('Fetched Projects:', projects);
 

@@ -9,6 +9,10 @@ import ModelViewer from "@/components/about/ModelViewer";
 
 import { fetchEntries } from "@/lib/contentful";
 
+export const metadata = {
+  title: "About — Olivia Oomen",
+};
+
 export default async function AboutPage() {
 
     // Detect draft mode
