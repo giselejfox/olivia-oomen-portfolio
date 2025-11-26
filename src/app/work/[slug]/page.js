@@ -9,6 +9,7 @@ import { fetchEntryBySlug, fetchEntries } from '@/lib/contentful';
 
 import ProjectContent from '@/components/project/ProjectContent';
 import ProjectHeading from '@/components/project/ProjectHeading';
+import Navbar from "@/components/global/NavBar";
 
 // --- Page ---
 export default async function ProjectPage({ params }) {
@@ -16,7 +17,7 @@ export default async function ProjectPage({ params }) {
 
   // Detect preview mode
   const { isEnabled: preview } = draftMode();
-  console.log("Preview mode:", draftMode().isEnabled);
+  // console.log("Preview mode:", draftMode().isEnabled);
 
   // ⭐ Disable caching ONLY in preview mode
   if (preview) {
@@ -47,6 +48,7 @@ export default async function ProjectPage({ params }) {
         date={date}
       />
       <ProjectContent contentBlocks={fields.content} />
+      <Navbar />
     </main>
   );
 }
