@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './globals.css';
+import { Analytics } from "@vercel/analytics/next"
 import { DM_Sans } from 'next/font/google';
 
 import Navbar from '@/components/global/NavBar';
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
       <body>
         <Navbar />
         {children}
+        <Analytics />
       </body>
     </html>
   );
