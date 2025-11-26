@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-  font-family:  var(--font-dm-sans), 'DM sans', sans-serif !important;
+  font-family: var(--font-dm-sans), 'DM sans', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -24,11 +24,17 @@ code {
 }
 
 .no-underline-link:hover {
-  text-decoration: line-through !important;
+  /* text-decoration: line-through !important; */
+  text-decoration: underline;
+  text-underline-offset: -39%;
+  text-decoration-skip-ink: none;
 }
 
 a:hover {
-  text-decoration: line-through;
+  /* text-decoration: line-through; */
+  text-decoration: underline;
+  text-underline-offset: -39%;
+  text-decoration-skip-ink: none;
 }
 
 h1 {
@@ -42,7 +48,8 @@ h1 {
 .main-splash {
   height: 100vh;
   width: 100%;
-  margin-top: calc(-1 * var(--navbar-height)) /* The navbar height*/
+  margin-top: calc(-1 * var(--navbar-height))
+    /* The navbar height*/
 }
 
 .main-splash-link {
@@ -74,7 +81,8 @@ h1 {
   /* border: 1px solid black; */
   padding: 10px;
   position: absolute;
-  animation: spin 10s linear infinite; /* Add the spin animation */
+  animation: spin 10s linear infinite;
+  /* Add the spin animation */
 }
 
 .content {
@@ -89,6 +97,7 @@ h1 {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -97,14 +106,17 @@ h1 {
 /* Projects Listing Cards */
 
 .card {
-  height: 350px; /* fixed height for all cards */
+  height: 350px;
+  /* fixed height for all cards */
   display: flex;
   flex-direction: column;
 }
 
 .image-container {
-  height: 300px;   /* fixed height for all images */
-  flex-shrink: 0;  /* prevent shrinking */
+  height: 300px;
+  /* fixed height for all images */
+  flex-shrink: 0;
+  /* prevent shrinking */
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -136,23 +148,30 @@ h1 {
 
 .canvas-container {
   position: relative;
-  width: 100vw; /* Adjust as needed */
-  height: 100vh; /* Adjust as needed */
+  width: 100vw;
+  /* Adjust as needed */
+  height: 100vh;
+  /* Adjust as needed */
 }
 
 .heading-container {
   position: absolute;
-  top: 50%; /* Adjust to vertically center the heading */
-  left: 50%; /* Adjust to horizontally center the heading */
-  transform: translate(-50%, -50%); /* Center the heading precisely */
-  z-index: 1; /* Ensure the heading is above the canvas */
+  top: 50%;
+  /* Adjust to vertically center the heading */
+  left: 50%;
+  /* Adjust to horizontally center the heading */
+  transform: translate(-50%, -50%);
+  /* Center the heading precisely */
+  z-index: 1;
+  /* Ensure the heading is above the canvas */
 }
 
 canvas {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2; /* Ensure the canvas is below the heading */
+  z-index: 2;
+  /* Ensure the canvas is below the heading */
 }
 
 .main-name-3D-backdrop {
@@ -244,9 +263,12 @@ canvas {
 }
 
 .no-bullets {
-  list-style-type: none; /* Remove bullets */
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margins */
+  list-style-type: none;
+  /* Remove bullets */
+  padding: 0;
+  /* Remove padding */
+  margin: 0;
+  /* Remove margins */
 }
 
 ul.no-bullets li {
@@ -256,7 +278,7 @@ ul.no-bullets li {
 
 /* _______ HONORS PROJECT ________*/
 
-.background-image{
+.background-image {
   margin-top: calc(-1 * var(--navbar-height));
   background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 80%, rgba(255, 255, 255, 1) 90%), url("../../public/img/honors-project/background-gif/liv-sewing.gif");
 }
@@ -288,7 +310,7 @@ ul.no-bullets li {
   padding-bottom: 3rem !important;
 }
 
-.modal-body > button {
+.modal-body>button {
   margin-right: 10px;
   border-radius: 50px;
   width: 8rem;
@@ -298,11 +320,11 @@ ul.no-bullets li {
 button.topic-icon {
   background: none;
   color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 
 button.topic-icon:hover {
@@ -315,11 +337,11 @@ button.topic-icon:focus {
 
 
 .background-image {
-  background-size: contain !important ;
+  background-size: contain !important;
 
   /* sm < 667 */
-  width: 1100px; 
-  height: 770px; 
+  width: 1100px;
+  height: 770px;
 
   position: relative;
 }
@@ -340,18 +362,18 @@ button.topic-icon:focus {
 /* HEIGHT BREAKPOINTS */
 
 /* md >= 667 & < 900 */
-@media (min-height: 667px) { 
+@media (min-height: 667px) {
   .background-image {
-    width: 1400px; 
-    height: 980px; 
+    width: 1400px;
+    height: 980px;
   }
 }
 
 /* lg >= 900 */
-@media (min-height: 900px) { 
+@media (min-height: 900px) {
   .background-image {
-    width: 1700px; 
-    height: 1190px; 
+    width: 1700px;
+    height: 1190px;
   }
 }
 
@@ -359,7 +381,7 @@ button.topic-icon:focus {
 /* _______ MEDIA QUERIES _______ */
 
 /* md */
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
 
   .main-splash-letter {
     font-size: 8rem;
@@ -373,7 +395,7 @@ button.topic-icon:focus {
 }
 
 /* lg */
-@media (min-width: 992px) { 
+@media (min-width: 992px) {
 
   .about-container {
     margin-left: 10rem;
@@ -387,7 +409,7 @@ button.topic-icon:focus {
 }
 
 /* xl */
-@media (min-width: 1200px) { 
+@media (min-width: 1200px) {
 
   .main-splash-letter {
     font-size: 10rem;
