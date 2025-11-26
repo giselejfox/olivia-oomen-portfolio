@@ -53,7 +53,11 @@ export default function ProjectContent({ contentBlocks }) {
               extractImageFields(fields.leftImage),
               extractImageFields(fields.rightImage)
             ];
-            return <TwoColumnImageLayout key={block.sys.id} imageData={imageData} />;
+            const proportions = {
+              leftImageProportion: fields.leftImageProportion || 6,
+              rightImageProportion: fields.rightImageProportion || 6
+            }
+            return <TwoColumnImageLayout key={block.sys.id} imageData={imageData} proportions={proportions} />;
 
           case 'spacer':
             const height = fields.height || 5; // default to 5 if height is not specified
