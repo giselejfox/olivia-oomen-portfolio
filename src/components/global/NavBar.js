@@ -8,7 +8,7 @@ export default function Navbar() {
     const pathname = usePathname()
     
     return (
-        <nav className="navbar navbar-expand-lg py-5 px-4" style={{zIndex: 2}}>
+        <nav className="navbar navbar-expand-lg py-5 px-4" style={{zIndex: 9999}}>
             <div className="container-fluid">
                 <Link className="navbar-brand fw-bold" href="/">OLIVIA OOMEN</Link>
                 <button className="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,12 +22,12 @@ export default function Navbar() {
                             href="/work"
                         >WORK</Link>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <Link 
                             className={"nav-link active fw-bold " + (pathname === '/honors-portfolio' ? "text-decoration-line-through" : '')}
                             href="/honors-portfolio"
                         >HONORS PORTFOLIO</Link>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                         <Link 
                             className={"nav-link active fw-bold " + (pathname === '/about' ? "text-decoration-line-through" : '')}

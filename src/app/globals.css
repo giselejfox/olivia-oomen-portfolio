@@ -37,6 +37,17 @@ a:hover {
   text-decoration-skip-ink: none;
 }
 
+a:focus {
+  /* text-decoration: line-through; */
+  color: red !important
+}
+
+.nav-link:focus {
+  outline: 3px solid;
+  outline-offset: 2px;
+}
+
+
 h1 {
   font-weight: 700 !important;
   letter-spacing: 0.1rem;
@@ -55,6 +66,15 @@ h1 {
 .main-splash-link {
   text-decoration: none;
   color: black;
+}
+
+a.main-splash-link:focus {
+  color: red;
+}
+
+.main-splash-link:focus {
+  outline: 2px solid blue;
+  color: red;
 }
 
 .main-splash-letter {
