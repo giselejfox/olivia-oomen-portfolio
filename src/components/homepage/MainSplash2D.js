@@ -23,7 +23,7 @@ export default function MainSplash2D({ projectData }) {
         };
 
         window.addEventListener('resize', handleResize);
-        
+
         return () => {
             window.removeEventListener('resize', handleResize);
             clearTimeout(resizeTimer);
@@ -48,118 +48,148 @@ export default function MainSplash2D({ projectData }) {
 }
 
 function PhysicsScene({ router, projectData }) {
-  const sceneRef = useRef(null);
+    const sceneRef = useRef(null);
 
-  useEffect(() => {
-    const Engine = Matter.Engine;
-    const Render = Matter.Render;
-    const World = Matter.World;
-    const Bodies = Matter.Bodies;
-    const Runner = Matter.Runner;
+    useEffect(() => {
+        const Engine = Matter.Engine;
+        const Render = Matter.Render;
+        const World = Matter.World;
+        const Bodies = Matter.Bodies;
+        const Runner = Matter.Runner;
 
-    const engine = initializeEngine()
-    const world = engine.world;
-    const render = initializeRender(sceneRef, engine);
+        const engine = initializeEngine()
+        const world = engine.world;
+        const render = initializeRender(sceneRef, engine);
 
-    const windowHeight = window.innerHeight
-    const windowWidth = window.innerWidth
+        const windowHeight = window.innerHeight
+        const windowWidth = window.innerWidth
 
-    // I want the scale to make it so the images are no larger than 400px on the larger screen and 200px on the smaller screen
+        // I want the scale to make it so the images are no larger than 400px on the larger screen and 200px on the smaller screen
 
-    const bodies = projectData.map((project) => {
-        const x = Math.random() * windowWidth;
-        const y = Math.random() * windowHeight;
+        const bodies = projectData.map((project) => {
+            const x = Math.random() * windowWidth;
+            const y = Math.random() * windowHeight;
 
-        const scale = getScale({ width: project.imageWidth, height: project.imageHeight }, 400)
-        const scaleWithResizeFactor = scale * project.homepageIconResizeFactor
-        const boxHeight = project.imageHeight * (scaleWithResizeFactor - 0.05) // 0.1 lets them overlap a bit
-        const boxWidth = project.imageWidth * (scaleWithResizeFactor - 0.05) // 0.1 lets them overlap a bit
+            const scale = getScale({ width: project.imageWidth, height: project.imageHeight }, 400)
+            const scaleWithResizeFactor = scale * project.homepageIconResizeFactor
+            const boxHeight = project.imageHeight * (scaleWithResizeFactor - 0.05) // 0.1 lets them overlap a bit
+            const boxWidth = project.imageWidth * (scaleWithResizeFactor - 0.05) // 0.1 lets them overlap a bit
 
-        const body = Bodies.rectangle(x, y, boxWidth, boxHeight, {
-            restitution: 0.6,
+            const body = Bodies.rectangle(x, y, boxWidth, boxHeight, {
+                restitution: 0.6,
+                render: {
+                    sprite: {
+                        texture: project.iconUrl,
+                        xScale: scaleWithResizeFactor,
+                        yScale: scaleWithResizeFactor
+                    }
+                },
+                label: project.slug
+            });
+
+            Matter.Body.setAngularVelocity(body, 0.1); // adjust the value as needed
+
+            return body;
+        })
+
+        const text = Bodies.rectangle(windowWidth / 2, windowHeight / 2, 1, 1, {
+            isStatic: true, // Set the body as static
+            collisionFilter: {
+                category: 0,
+                mask: 0, // don't collide with anything
+            },
             render: {
                 sprite: {
-                    texture: project.iconUrl,
-                    xScale: scaleWithResizeFactor,
-                    yScale: scaleWithResizeFactor
+                    texture: 'img/texthomepage.png',
+                    xScale: .2,
+                    yScale: .2
                 }
-            },
-            label: project.slug
+            }
         });
 
-        Matter.Body.setAngularVelocity(body, 0.1); // adjust the value as needed
+        const walls = createWalls();
 
-        return body;
-    })
+        World.add(world, [text, ...walls, ...bodies]);
 
-    const text = Bodies.rectangle(windowWidth / 2, windowHeight / 2, 1, 1, {
-        isStatic: true, // Set the body as static
-        collisionFilter: {
-            category: 0,
-            mask: 0, // don't collide with anything
-        },
-        render: {
-            sprite: {
-                texture: 'img/texthomepage.png',
-                xScale: .2,
-                yScale: .2
+        // Add mouse control
+        const mouse = Mouse.create(render.canvas);
+        const mouseConstraint = MouseConstraint.create(engine, {
+            mouse: Matter.Mouse.create(render.canvas),
+            constraint: { stiffness: 0.2, render: { visible: false } },
+        });
+
+        // Add an event listener to prevent default behavior on mouse clicks
+        mouseConstraint.mouse.element.addEventListener("mousedown", function (event) {
+            event.preventDefault();
+        });
+
+        // This helps determine what's been double clicked
+        let lastMouseDownInfo = { bodyLabel: "starter", date: 0 }
+
+        // === TOUCH DOUBLE-TAP SUPPORT ===
+        let lastTapInfo = { bodyLabel: null, date: 0 };
+
+        render.canvas.addEventListener("touchstart", (e) => {
+            const touch = e.touches[0];
+            if (!touch) return;
+
+            const rect = render.canvas.getBoundingClientRect();
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+
+            // Query Matter.js for bodies under the tap
+            const tappedBodies = Matter.Query.point(bodies, { x, y });
+            if (tappedBodies.length === 0) return;
+
+            const tapped = tappedBodies[0]; // take first hit
+            const now = Date.now();
+
+            const isDoubleTap =
+                tapped.label === lastTapInfo.bodyLabel &&
+                areDatesWithinTwoSeconds(now, lastTapInfo.date);
+
+            if (isDoubleTap) {
+                router.push(`/work/${tapped.label}`);
+            } else {
+                lastTapInfo = { bodyLabel: tapped.label, date: now };
             }
-        }
-    });
+        });
 
-    const walls = createWalls();
 
-    World.add(world, [text, ...walls, ...bodies]);
-
-    // Add mouse control
-    const mouse = Mouse.create(render.canvas);
-    const mouseConstraint = MouseConstraint.create(engine, {
-      mouse: Matter.Mouse.create(render.canvas),
-      constraint: { stiffness: 0.2, render: { visible: false } },
-    });
-
-    // Add an event listener to prevent default behavior on mouse clicks
-    mouseConstraint.mouse.element.addEventListener("mousedown", function (event) {
-        event.preventDefault();
-    });
-
-    // This helps determine what's been double clicked
-    let lastMouseDownInfo = {bodyLabel: "starter", date: 0}
-
-    Events.on(mouseConstraint, "mousedown", () => {
-        const body = mouseConstraint.body;
-        const now = Date.now();
-        // if we've clicked on a body and the last click we did was on the same body and less than 1 second ago
-        // then we open that project page
-        if (body) {
-            const doubleClick = areDatesWithinTwoSeconds(Date.now(), lastMouseDownInfo.date) && mouseConstraint.body.label === lastMouseDownInfo.bodyLabel
-            if (doubleClick) {
-                router.push(`/work/${body.label}`)
-            } else { // otherwise we rest the last thing we clicked
-                lastMouseDownInfo = {bodyLabel: mouseConstraint.body.label, date: now}
+        Events.on(mouseConstraint, "mousedown", () => {
+            const body = mouseConstraint.body;
+            const now = Date.now();
+            // if we've clicked on a body and the last click we did was on the same body and less than 1 second ago
+            // then we open that project page
+            if (body) {
+                const doubleClick = areDatesWithinTwoSeconds(Date.now(), lastMouseDownInfo.date) && mouseConstraint.body.label === lastMouseDownInfo.bodyLabel
+                if (doubleClick) {
+                    router.push(`/work/${body.label}`)
+                } else { // otherwise we rest the last thing we clicked
+                    lastMouseDownInfo = { bodyLabel: mouseConstraint.body.label, date: now }
+                }
             }
-        }
-    });
+        });
 
-    World.add(world, mouseConstraint);
+        World.add(world, mouseConstraint);
 
-    // Sync mouse with rendering
-    render.mouse = mouse;
+        // Sync mouse with rendering
+        render.mouse = mouse;
 
-    // Run engine and renderer
-    const runner = Matter.Runner.create();
-    Runner.run(runner, engine);
-    Render.run(render);
+        // Run engine and renderer
+        const runner = Matter.Runner.create();
+        Runner.run(runner, engine);
+        Render.run(render);
 
-    return () => {
-      Render.stop(render);
-      Engine.clear(engine);
-      render.canvas.remove();
-      render.textures = {};
-    };
-  }, []);
+        return () => {
+            Render.stop(render);
+            Engine.clear(engine);
+            render.canvas.remove();
+            render.textures = {};
+        };
+    }, []);
 
-  return <div ref={sceneRef} />;
+    return <div ref={sceneRef} />;
 }
 
 const initializeEngine = () => {
@@ -174,15 +204,15 @@ const initializeRender = (sceneRef, engine) => {
     const windowWidth = window.innerWidth
 
     const render = Render.create({
-      element: sceneRef.current,
-      engine: engine,
-      options: {
-        width: windowWidth,
-        height: windowHeight,
-        background: 'white',
-        wireframes: false,
-        slop: 0.7, // Adjust this value to reduce distortion
-      },
+        element: sceneRef.current,
+        engine: engine,
+        options: {
+            width: windowWidth,
+            height: windowHeight,
+            background: 'white',
+            wireframes: false,
+            slop: 0.7, // Adjust this value to reduce distortion
+        },
     });
     return render;
 };
