@@ -189,7 +189,7 @@ function PhysicsScene({ router, projectData }) {
         };
     }, []);
 
-    return <div ref={sceneRef} />;
+    return <div className="homepage-canvas-ref" ref={sceneRef} />;
 }
 
 const initializeEngine = () => {

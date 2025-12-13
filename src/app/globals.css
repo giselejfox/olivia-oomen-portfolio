@@ -161,13 +161,12 @@ h1 {
   /* Ensure the heading is above the canvas */
 }
 
-canvas {
+/* .homepage-canvas-ref canvas {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 2;
-  /* Ensure the canvas is below the heading */
-}
+} */
 
 .main-name-3D-backdrop {
   font-size: 12rem;

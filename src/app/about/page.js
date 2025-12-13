@@ -8,6 +8,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import ModelViewer from "@/components/about/ModelViewer";
 
 import { fetchEntries } from "@/lib/contentful";
+import DinoGame from "@/components/about/DinoGame";
 
 export const metadata = {
   title: "About — Olivia Oomen",
@@ -32,6 +33,7 @@ export default async function AboutPage() {
 
     return (
         <div className="container">
+            <DinoGame />
             <div className="row mx-md-5">
                 <div className="col-12 col-md-6" style={{ paddingRight: "5rem" }}>
                     <section>
@@ -54,7 +56,7 @@ export default async function AboutPage() {
                 <div className="col-12 col-md-6">
                     {/* <ModelViewer /> */}
                 </div>
-            </div>
+            </div> 
         </div>
     )
 }
