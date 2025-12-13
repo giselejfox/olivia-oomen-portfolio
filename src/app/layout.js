@@ -7,7 +7,7 @@ import Navbar from '@/components/global/NavBar';
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
-  weight: ['400','700','800'],
+  weight: ['400', '700', '800'],
   variable: '--font-dm-sans',
   display: 'swap',
 });
@@ -39,6 +39,10 @@ export default function RootLayout({ children }) {
       <body>
         <Navbar />
         {children}
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+          async
+        />
         <Analytics />
       </body>
     </html>
