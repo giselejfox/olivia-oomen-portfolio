@@ -38,9 +38,9 @@ export default async function AboutPage() {
                         <h1 className="mt-5 mb-4">{introHeading}</h1>
                         <p className="mb-5">{textBox}</p>
                     </section>
-                    <section className="mt-5 mb-5" >
+                    {/* <section className="mt-5 mb-5" >
                         <a className="no-underline-link" href={resumePdfUrl}>VIEW RESUME</a>
-                    </section>
+                    </section> */}
                     <section>
                         <p className="fw-bold">SAY HI!</p>
                         {/* <a className="email-link fw-bold text-decoration-none" href="mailto:oomen@uw.edu">oomen@uw.edu</a> */}
