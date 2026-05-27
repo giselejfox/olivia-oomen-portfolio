@@ -16,7 +16,7 @@ export const metadata = {
 export default async function AboutPage() {
 
     // Detect draft mode
-    const { isEnabled: preview } = draftMode();
+    const { isEnabled: preview } = await draftMode();
 
     // Disable all caching in preview mode
     if (preview) {

@@ -16,7 +16,7 @@ export default async function ProjectPage({ params }) {
   const { slug } = await params;
 
   // Detect preview mode
-  const { isEnabled: preview } = draftMode();
+  const { isEnabled: preview } =  await draftMode();
   // console.log("Preview mode:", draftMode().isEnabled);
 
   // ⭐ Disable caching ONLY in preview mode

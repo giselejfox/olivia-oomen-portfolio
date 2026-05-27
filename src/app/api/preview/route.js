@@ -22,7 +22,7 @@ export async function GET(req) {
         }
 
         // ⭐ Enable draft mode BEFORE redirect
-        draftMode().enable();
+        (await draftMode()).enable();
 
         console.log("Preview mode enabled and setting slug to:", slug);
 

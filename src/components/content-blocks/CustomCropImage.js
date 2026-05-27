@@ -36,7 +36,7 @@ export default function CustomCropImage({
     }
 
     return {
-      url: `${url}?fit=fill&w=${size.w}&h=${size.h}&f=${focalPoint || "center"}`,
+      url: `${url}?fit=fill&w=${size.w}&h=${size.h}&f=${focalPoint || "center"}&q=100`,
       mode: "crop",
       arWidth: size.w,
       arHeight: size.h

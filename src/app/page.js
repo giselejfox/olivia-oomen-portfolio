@@ -4,7 +4,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import HomeClient from '@/components/homepage/HomeClient';
 
 export default async function Home() {
-  const { isEnabled: preview } = draftMode();
+  const { isEnabled: preview } = await draftMode();
   
   if (preview) {
     noStore();
