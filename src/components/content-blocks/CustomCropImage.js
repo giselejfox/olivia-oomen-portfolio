@@ -6,7 +6,11 @@ export default function CustomCropImage({
   imageHeight,
   imageWidth,
   customRatio,
-  focalPoint
+  focalPoint,
+  sizes = "100vw",
+  priority = false,
+  quality = 85,
+  unoptimized = false
 }) {
 
   const buildImage = (url, ratio, focalPoint) => {
@@ -20,8 +24,8 @@ export default function CustomCropImage({
     }
 
     const sizeMap = {
-      landscape_3_2: { w: 1500, h: 1000 },
-      portrait_4_5: { w: 1200, h: 1500 }
+      landscape_3_2: { w: 3000, h: 2000 },
+      portrait_4_5: { w: 2400, h: 3000 }
     };
 
     const size = sizeMap[ratio];
@@ -58,12 +62,16 @@ export default function CustomCropImage({
         overflow: "hidden" // prevents spillover in Bootstrap columns
       }}
     >
-      <Image
-        src={url}
-        alt={altText}
-        fill
-        style={{ objectFit }}
-      />
+    <Image
+      src={url}
+      alt={altText}
+      fill
+      sizes={sizes}
+      quality={quality}
+      priority={priority}
+      unoptimized={unoptimized}
+      style={{ objectFit: mode === "crop" ? "cover" : "contain" }}
+    />
     </div>
   );
 }
